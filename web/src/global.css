@@ -1,0 +1,29 @@
+/*estilização global que será aplicada em todo o projeto*/
+/**/
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+
+/* *- Todos os elementos*/
+/*Zera todas as propriedades que possam estar com um valor predefinido do HTML*/
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+/*coloca a altura 100% pq o padrão é apenas a largura 100%*/
+html, body, #root {
+    height: 100%;
+}
+
+body {
+    background: #E5E6F0;
+    /*propriedade dos navegadores que deixa a fonte mais legível*/
+    -webkit-fonr-smoothing: antialiased;
+}
+
+/*Input e button também pq eles não herdam por padrão a fonte do body*/
+body, input, button {
+    font-family: Roboto, sans-serif;
+}

@@ -4,6 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 //importação das rotas
 const routes = require('./routes')
+const cors = require('cors')
 
 //as variáveis são const pois elas não serão alteradas: valor fixo
 
@@ -20,6 +21,11 @@ const app = express()
 
 //definição da porta da aplicação
 app.listen(3333)
+
+//se não colocar o parâmetro permite o acesso interno para todo o tipo de aplicação
+app.use(cors())
+//determina o endereço que irá chamar
+//app.use(cors({ origin: 'http://localhost:3000' }))
 
 //.use - informa que será utilizado para todas as rotas da aplicação
 //informa para o express entender o corpo de requisições no formato JSON

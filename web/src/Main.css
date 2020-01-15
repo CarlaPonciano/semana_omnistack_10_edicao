@@ -1,0 +1,24 @@
+/*Estilização para o principal*/
+/**/
+
+/*estilização da tag main*/
+main {
+    /*faz com que o main ocupe todo o espaço disponível para ele*/
+    flex: 1;
+}
+
+main ul {
+    display: grid;
+    /*2 colunas*/
+    grid-template-columns: repeat(2, 1fr);
+    /*gap: distancia tantos as linhas qnt as colunas em 20px*/
+    gap: 20px;
+    /*tira as bolinhas do início*/
+    list-style: none;
+}
+
+@media (max-width: 650px) {
+    main ul {
+        grid-template-columns: 1fr;
+    }
+}

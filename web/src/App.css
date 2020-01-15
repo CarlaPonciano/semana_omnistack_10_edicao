@@ -1,0 +1,41 @@
+/*Estilização do componente App*/
+/**/
+
+/*Estilização da div app criada*/
+#app {
+    /*Largura máxima de 1200px*/
+    max-width: 1200px;
+    /*se a tela do usuário for grande vai ficar tudo centralizado*/
+    margin: 0 auto;
+    /*paggind de 60px em cima e em baixo e 30px na direta e na esquerda*/
+    padding: 60px 30px;
+
+    display: flex;
+    /*para ficar alinhado um ao lado do outro - linha*/
+    flex-direction: row;
+    /*alinhados ao topo*/
+    align-items: flex-start;
+}
+
+#app main {
+    /*Espaçamento entre os elementos*/
+    margin-left: 30px;
+}
+
+/*como colocar a responsividade: jeito mais simples*/
+/*muda a direção quando atingir a largura X*/
+@media (max-width: 1000px) {
+    #app {
+        flex-direction: column;
+    }
+
+    /*retira a margin left*/
+    #app main {
+        margin-left: 0;
+        margin-top: 30px;
+    }
+
+    #app aside {
+        width: 100%;
+    }
+}
