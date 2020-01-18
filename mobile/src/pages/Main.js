@@ -12,6 +12,8 @@ import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location'
 import { MaterialIcons } from '@expo/vector-icons'
 //importação da api
 import api from '../services/api'
+//importa o socket pois e a pagina que precisa se comunicar com o backend qnd uma nova inserção for feita
+import { connect, disconnect, subscribeToNewDevs } from '../services/socket'
 
 function Main({ navigation }) {
     const [currentRegion, setCurrentRegion] = useState(null)
@@ -19,7 +21,7 @@ function Main({ navigation }) {
     const [techs, setTechs] = useState('')
 
     //carrega a localização do usuário para abrir mostrando no mapa
-    //[] será executada apenas 1 vez
+    //[] será executada apenas 1 vez    
     //chamada assíncrona
     useEffect(() => {
         async function loadInitialPosition() {
@@ -53,6 +55,25 @@ function Main({ navigation }) {
         loadInitialPosition()
     }, [])
 
+    //sempre que a variável devs mudar executa a função
+    useEffect(() => {
+        subscribeToNewDevs(dev => setDevs([...devs, dev]))
+    }, [devs])
+
+    function setupWebsocket() {
+        //desconecta a conexão anterior para não ficar com conexões sobrando
+        disconnect()
+
+        const { latitude, longitude } = currentRegion
+
+        //envia para o servidor os parâmetros
+        connect(
+            latitude, 
+            longitude, 
+            techs,
+        )
+    }
+
     //carregar usuários: carrega toda vez que o usuário clica no botão
     async function loadDevs() {
         const { latitude, longitude } = currentRegion
@@ -70,7 +91,9 @@ function Main({ navigation }) {
         } catch(err) {
                 console.error(err);
         }
-        
+
+        //chama o real time apenas qnd ocorre a pesquisa/passa a escutar apenas qnd a pesquisa é feita
+        setupWebsocket()
     }
 
     //muda a localização quando o usuário percorre no mapa

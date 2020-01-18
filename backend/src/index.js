@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 //importação das rotas
 const routes = require('./routes')
 const cors = require('cors')
+const http = require('http')
+const { setupWebsocket } = require('./websocket')
 
 //as variáveis são const pois elas não serão alteradas: valor fixo
 
@@ -19,8 +21,14 @@ mongoose.connect('mongodb+srv://carla:estudo@cluster0-3aef4.mongodb.net/week10?r
 //criação de rota - URL com resposta do servidor
 const app = express()
 
+//servidor http fora do express para trabalhar com ele diretamente
+//extrai o servidor http do express
+const server = http.Server(app)
+//chama a função criada enviando o servidor
+setupWebsocket(server)
+
 //definição da porta da aplicação
-app.listen(3333)
+server.listen(3333)
 
 //se não colocar o parâmetro permite o acesso interno para todo o tipo de aplicação
 app.use(cors())
